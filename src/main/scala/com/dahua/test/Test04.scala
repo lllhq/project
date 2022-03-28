@@ -22,7 +22,7 @@ object Test04 {
     val qie: RDD[LogBean] = lj.map(_.split(",", -1)).filter(_.length >= 85).map(LogBean(_)).filter(x => {
       !x.appid.isEmpty
     })
-    qie.mapPartitions(it=>{
+    qie.mapPartitions(it => {
       val jedis: Jedis = RedisUtil.getJedis
       val ss: Iterator[(String, List[Double])] = it.map(x => {
         var appname: String = x.appname
@@ -35,14 +35,12 @@ object Test04 {
           }
         }
         val yewu: List[Double] = DIMZhibiao.qqsRtp(x.requestmode, x.processnode)
-        (appname, yewu )
+        (appname, yewu)
 
       })
-
       ss
-
-    }).reduceByKey((x,y)=>{
-      x.zip(y).map(t=>t._1+t._2)
+    }).reduceByKey((x, y) => {
+      x.zip(y).map(t => t._1 + t._2)
     }).foreach(println)
   }
 

@@ -7,7 +7,7 @@ import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 
 import java.util.UUID
 
-object TagRpt{
+object TagRpt {
 
   def main(args: Array[String]): Unit = {
     if (args.length != 4) {
@@ -29,7 +29,7 @@ object TagRpt{
     import spark.implicits._
 
     //接收参数
-    var Array(inputPath,app_Mapping,stopWords, outputPath) = args
+    var Array(inputPath, app_Mapping, stopWords, outputPath) = args
 
     //读取app_Mapping广播变量
     val app_map: Map[String, String] = sc.textFile(app_Mapping).map(line => {
@@ -59,6 +59,7 @@ object TagRpt{
       // 地域标签
       val pcMap: Map[String, Int] = PCTags.makeTags(row)
       // 商圈标签.
+      val bcMap: Map[String, Int] = BCTags.makeTags(row)
 
 
       // 获取用户ID
@@ -66,11 +67,11 @@ object TagRpt{
       if (TagUtil.getUserId(row).size > 0) {
         (TagUtil.getUserId(row)(0), (adsMap ++ appMap ++ driverMap ++ keyMap ++ pcMap).toList)
       } else {
-        (UUID.randomUUID().toString.substring(0, 6), (adsMap ++ appMap ++ driverMap ++ keyMap ++ pcMap).toList)
+        (UUID.randomUUID().toString.substring(0, 6), (adsMap ++ appMap ++ driverMap ++ keyMap ++ pcMap ++ bcMap).toList)
       }
     })
-    TagDS.rdd.reduceByKey((list1,list2)=>{
-      (list1++list2).groupBy(_._1).mapValues(_.foldLeft(0)(_+_._2)).toList
+    TagDS.rdd.reduceByKey((list1, list2) => {
+      (list1 ++ list2).groupBy(_._1).mapValues(_.foldLeft(0)(_ + _._2)).toList
     }).saveAsTextFile(outputPath)
 
   }

@@ -17,7 +17,7 @@ public class SnCal {
         paramsMap.put("output", "json");
         paramsMap.put("location", "39.921910,116.443559");
         paramsMap.put("pois", "1");
-        paramsMap.put("ak", "npn5Vx4W127OmiSF7i83PRD7ftXb1NEe");
+        paramsMap.put("ak", "tdNzn1bXNr7BPR2LD0m65hV4S5W0rDvy");
 
         // 调用下面的toQueryString方法，对LinkedHashMap内所有value作utf8编码，拼接返回结果address=%E7%99%BE%E5%BA%A6%E5%A4%A7%E5%8E%A6&output=json&ak=yourak
         String paramsStr = snCal.toQueryString(paramsMap);

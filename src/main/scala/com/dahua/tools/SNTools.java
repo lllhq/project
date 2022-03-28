@@ -14,11 +14,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SNTools {
-    public static void main(String[] args) throws Exception {
-        SNTools snTools = new SNTools();
-        snTools.getBusiness("40.1515239088872,116.85505980507659");
-        //116.3161200000,39.9850750000
-    }
+//    public static void main(String[] args) throws Exception {
+//        SNTools snTools = new SNTools();
+//        snTools.getBusiness("39.92008978130026,116.45475090484622");
+//        //116.3161200000,39.9850750000
+//    }
 
     public static String getBusiness(String latAndLong) throws Exception, NoSuchAlgorithmException {
         SNTools snCal = new SNTools();
@@ -30,7 +30,7 @@ public class SNTools {
         paramsMap.put("output", "json");
         paramsMap.put("location", latAndLong);
         paramsMap.put("pois", "1");
-        paramsMap.put("ak", "XTT8Y9jF8ZR8VgjDCulGhgW6QpXkYBC7");
+        paramsMap.put("ak", "tdNzn1bXNr7BPR2LD0m65hV4S5W0rDvy");
         String business = "";
 
         // 调用下面的toQueryString方法，对LinkedHashMap内所有value作utf8编码，拼接返回结果address=%E7%99%BE%E5%BA%A6%E5%A4%A7%E5%8E%A6&output=json&ak=yourak
@@ -38,7 +38,7 @@ public class SNTools {
         System.out.println(paramsStr);
 
         // 对paramsStr前面拼接上/geocoder/v2/?，后面直接拼接yoursk得到/geocoder/v2/?address=%E7%99%BE%E5%BA%A6%E5%A4%A7%E5%8E%A6&output=json&ak=yourakyoursk
-        String wholeStr = new String("/reverse_geocoding/v3/?" + paramsStr + "brChH6ym4vVZKgIyHl6cFGUN8xIBpjwa");
+        String wholeStr = new String("/reverse_geocoding/v3/?" + paramsStr + "rcSoDCcDyHQhWKX0G9Y7rBLAFdE7ydis");
 
         // 对上面wholeStr再作utf8编码
         String tempStr = URLEncoder.encode(wholeStr, "UTF-8");
